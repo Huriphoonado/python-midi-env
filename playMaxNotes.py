@@ -4,12 +4,14 @@
 #	 Metronome will affect a delay between notes played
 # Map functions that mess with that list
 # 	 Would be cool to map a dynamics list as well
+# We could have a make scale function
 
 import argparse
 import random
 from pythonosc import osc_message_builder
 from pythonosc import udp_client
 from time import sleep
+from math import log2, pow
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--ip", default="127.0.0.1", help="The ip of the OSC server")
@@ -43,6 +45,15 @@ def calculateNoteDuration(noteLength):
 # generates a random float between 0 and 127
 def randomMIDIVal():
 	return random.random() * 127.
+
+# Convert a frequency to a midi value
+def fToM(frequency):
+	return 12 * log2(frequency/440) + 69
+
+# Convert a midi value to a frequency
+def mToF(midiVal):
+	return 440 * pow(2, (midiVal - 69)/12)
+
 
 # ---------------------Make Sounds---------------------
 
@@ -84,9 +95,13 @@ def playLine(midiLine, noteLength="quarter", velocity=60, instrument=0):
 
 # ---------------------Map Functions---------------------
 
-# Will transpose
+# Will transpose a list of midinotes, the number of steps provided
 def transpose(midiLine, numSteps):
-	pass
+	if type(midiLine) != list:
+		print("The transpose function must take in a list of MIDI notes. For example: [60, 62, 63]")
+		return
+
+	return list(map((lambda midiNote: midiNote + numSteps), midiLine))
 
 
 # ---------------------Tests---------------------
@@ -99,6 +114,8 @@ def main():
 	setTempo(180)
 	print(TEMPO)
 	print(calculateNoteDuration("quarterZ"))
+	noteA = fToM(440)
+	print(noteA, mToF(noteA))
 
 	# Make some notes
 	playNote(60)
@@ -113,6 +130,9 @@ def main():
 	
 	playLine(cScale, "eighth")
 	playLine(cScale, "sixteenth", randomVelocities, 18)
+
+	# Test the map functions
+	playLine(transpose(cScale, 2), "sixteenth", 72, 16)
 
 if __name__ == '__main__':
 	main()
