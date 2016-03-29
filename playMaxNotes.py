@@ -17,7 +17,10 @@ import random
 from pythonosc import osc_message_builder
 from pythonosc import udp_client
 from time import sleep
+from musicalSymbols import *
 import math
+
+# ---------------------Helper Functions---------------------
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--ip", default="127.0.0.1", help="The ip of the OSC server")
@@ -38,16 +41,13 @@ def setTempo(tempo):
 # Current calculations are assuming 4/4 I think...
 def calculateNoteDuration(noteLength):
 	global TEMPO
-	durationDict = {"whole": 1, "half": 2, "quarter": 4, "eighth": 8, "sixteenth": 16}
-
 	millisecondsPerMeasure = (4/TEMPO) * 60 * 1000
-	
-	try:
-		noteDuration = durationDict[noteLength]
-		return millisecondsPerMeasure/noteDuration
-	except:
+
+	if type(noteLength) != int and type(noteLength) != float:
 		print("Invalid note length included: Using quarter notes")
 		return millisecondsPerMeasure/4
+	else:
+		return millisecondsPerMeasure/noteLength
 
 # generates a random float between 0 and 127
 def randomMIDIVal():
@@ -110,7 +110,7 @@ def transpose(midiLine, numSteps):
 
 	return list(map((lambda midiNote: midiNote + numSteps), midiLine))
 
-# changes placement of all pitches and rests 
+# changes placement of all pitches and rests
 def shuffleLine(midiLine):
 	if type(midiLine) != list:
 		print("The shuffleLine function must take in a list of MIDI notes. For example: [60, 62, 63]")
@@ -128,7 +128,7 @@ def shufflePitches(midiLine):
 	# remove all the rests and shuffle the order of the pitches
 	filteredLine = shuffleLine(list(filter((lambda nonRest: nonRest != -1), midiLine)))
 	newLine = []
-	
+
 	for note in midiLine:
 		if note != -1:
 			newLine.append(filteredLine.pop())
@@ -152,7 +152,7 @@ def shuffleRests(midiLine):
 		filteredLine.insert(random.randint(0, len(filteredLine)), -1)
 
 	return filteredLine
-	
+
 
 # ---------------------Tests---------------------
 
@@ -160,32 +160,33 @@ def shuffleRests(midiLine):
 def main():
 	# Test setup/helper functions
 	print(TEMPO)
-	print(calculateNoteDuration("half"))
+	print(half)
+	print(calculateNoteDuration(half))
 	setTempo(180)
 	print(TEMPO)
-	print(calculateNoteDuration("quarterZ"))
+	print(calculateNoteDuration("a"))
 	noteA = fToM(440)
 	print(noteA, mToF(noteA))
 
 	# Make some notes
-	playNote(60)
-	playNote(62, 100, 500, 57)
-	playNote(64, duration=1500)
+	#playNote(60)
+	#playNote(62, 100, 500, 57)
+	#playNote(64, duration=1500)
 
 	# Play some melodies
 	cScale = [60, 62, 64, 65, 67, 69, 71, 72, -1, 72, 71, 69, 67, 65, 64, 62, 60]
 	randomVelocities = []
 	for i in range(len(cScale)):
 		randomVelocities.append(randomMIDIVal())
-	
-	playLine(cScale, "eighth")
-	playLine(cScale, "sixteenth", randomVelocities, 18)
+
+	playLine(cScale, eighth)
+	playLine(cScale, sixteenth, randomVelocities, 18)
 
 	# Test the map functions
-	playLine(transpose(cScale, 2), "sixteenth", 72, 16)
-	playLine(shuffleLine(cScale), "sixteenth", 72, 16)
-	playLine(shuffleRests(cScale), "sixteenth", 72, 16)
-	playLine(shufflePitches(cScale), "sixteenth", 72, 16)
+	playLine(transpose(cScale, 2), sixteenth, 100, 16)
+	playLine(shuffleLine(cScale), sixteenth, 100, 16)
+	playLine(shuffleRests(cScale), sixteenth, 100, 16)
+	playLine(shufflePitches(cScale), sixteenth, 100, 16)
 
 if __name__ == '__main__':
 	main()

@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 763.0, 79.0, 542.0, 152.0 ],
+		"rect" : [ 899.0, 79.0, 493.0, 350.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -38,14 +38,47 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-14",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 86.0, 365.0, 40.0, 20.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 19.676529, 93.0, 40.0, 20.0 ],
+					"style" : "",
+					"text" : "Pitch"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"autofit" : 1,
+					"forceaspect" : 1,
+					"id" : "obj-10",
+					"maxclass" : "fpic",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "jit_matrix" ],
+					"patching_rect" : [ 273.5, 299.554016, 100.0, 60.891937 ],
+					"pic" : "Macintosh HD:/Users/williepayne/Desktop/csLearningFinal/Pitch_notation.png",
+					"presentation" : 1,
+					"presentation_rect" : [ 90.0, 149.0, 310.0, 188.765015 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"format" : 6,
 					"id" : "obj-30",
 					"maxclass" : "flonum",
+					"minimum" : 0.0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 29.0, 364.0, 50.0, 22.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 9.0, 114.0, 61.353058, 22.0 ],
 					"style" : ""
 				}
 
@@ -55,13 +88,15 @@
 					"format" : 6,
 					"id" : "obj-27",
 					"maxclass" : "flonum",
+					"maximum" : 127.0,
+					"minimum" : 0.0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 133.25, 398.0, 50.0, 22.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 39.25, 116.0, 50.0, 22.0 ],
+					"presentation_rect" : [ 146.462341, 114.0, 61.353058, 22.0 ],
 					"style" : ""
 				}
 
@@ -71,13 +106,14 @@
 					"format" : 6,
 					"id" : "obj-25",
 					"maxclass" : "flonum",
+					"minimum" : 0.0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 237.5, 425.0, 50.0, 22.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 170.625, 116.0, 50.0, 22.0 ],
+					"presentation_rect" : [ 283.924683, 114.0, 61.353058, 22.0 ],
 					"style" : ""
 				}
 
@@ -86,13 +122,14 @@
 				"box" : 				{
 					"id" : "obj-22",
 					"maxclass" : "number",
+					"minimum" : 0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 228.0, 237.0, 50.0, 22.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 302.0, 116.0, 50.0, 22.0 ],
+					"presentation_rect" : [ 421.386963, 114.0, 61.353058, 22.0 ],
 					"style" : ""
 				}
 
@@ -105,7 +142,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 286.0, 237.0, 67.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 293.5, 95.0, 67.0, 20.0 ],
+					"presentation_rect" : [ 418.563477, 93.0, 67.0, 20.0 ],
 					"style" : "",
 					"text" : "Instrument"
 				}
@@ -131,7 +168,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 46.5, 108.0, 86.5, 60.0 ],
+					"patching_rect" : [ 46.5, 108.0, 89.0, 60.0 ],
 					"style" : "",
 					"text" : "midiVal\nvelocity=60\nduration=1000\ninstrument=0"
 				}
@@ -174,7 +211,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 29.0, 66.0, 104.0, 35.0 ],
 					"style" : "",
-					"text" : "/playNote 62 72 83.333336 16"
+					"text" : "/playNote 71 100 83.333336 16"
 				}
 
 			}
@@ -199,7 +236,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 294.0, 425.0, 59.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 166.125, 95.0, 59.0, 20.0 ],
+					"presentation_rect" : [ 285.101196, 93.0, 59.0, 20.0 ],
 					"style" : "",
 					"text" : "Duration"
 				}
@@ -213,7 +250,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 191.0, 398.0, 56.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 36.25, 95.0, 56.0, 20.0 ],
+					"presentation_rect" : [ 149.13887, 93.0, 56.0, 20.0 ],
 					"style" : "",
 					"text" : "Velocity"
 				}
@@ -400,7 +437,13 @@
 
 			}
  ],
-		"dependency_cache" : [  ],
+		"dependency_cache" : [ 			{
+				"name" : "Pitch_notation.png",
+				"bootpath" : "~/Desktop/csLearningFinal",
+				"type" : "PNG ",
+				"implicit" : 1
+			}
+ ],
 		"embedsnapshot" : 0
 	}
 
