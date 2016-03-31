@@ -35,6 +35,10 @@ def setTempo(tempo):
 	TEMPO = tempo
 	return TEMPO
 
+def getTempo():
+	global TEMPO
+	return TEMPO
+
 # ---------------------Helper Functions---------------------
 
 # Takes a tempo and the note's duration and calculates exact milliseconds
@@ -61,6 +65,51 @@ def fToM(frequency):
 def mToF(midiVal):
 	return 440 * math.pow(2, (midiVal - 69)/12)
 
+def getPitch(object):
+	if type(object) == int or type(object) == float:
+		return object
+	elif type(object) == tuple:
+		return object[0]
+
+# Set pitch function
+def returnNoteWithNewPitch(object, midiToSet):
+	if type(object) == int or type(object) == float:
+		return midiToSet
+	elif type(object) == tuple:
+		return (midiToSet, object[1])
+
+# Read rhythm function
+def getRhythm(object):
+	if type(object) == int or type(object) == float:
+		return None
+	elif type(object) == tuple:
+		return object[1]
+
+# Set rhythm function
+def returnNoteWithNewRhythm(object, rhythmToSet):
+	if type(object) == int or type(object) == float:
+		return (object, rhythmToSet)
+	elif type(object) == tuple:
+		return (object[0], rhythmToSet)
+
+# Call function to split up noteLine into pitches and rhythms
+# If a rhythmic value exists use that, if it does not exist, use the default or provided
+def splitNoteLine(noteLine, noteLength):
+	midiLine = []
+	rhythmLine = []
+
+	for note in noteLine:
+		if type(note) == int or type(note) == float:
+			midiLine.append(note)
+			rhythmLine.append(noteLength)
+		elif type(note) == tuple:
+			midiLine.append(note[0])
+			rhythmLine.append(note[1])
+		else:
+			print("Oops, something is wrong with the note you provided: " + note)
+			return False
+
+	return midiLine, rhythmLine
 
 # ---------------------Make Sounds---------------------
 
@@ -68,7 +117,8 @@ def mToF(midiVal):
 # MIDI note value required, other parameters optional
 # Currently, notes last full duration
 # 	Could consider adding a staccato/legato parameter
-def playNote(midiVal, velocity=60, duration=1000, instrument=0):
+def playNote(midiVal, velocity=60, noteLength=4, instrument=0):
+	duration = calculateNoteDuration(noteLength)
 	if midiVal != -1:
 		msg = osc_message_builder.OscMessageBuilder(address = "/playNote")
 		msg.add_arg(midiVal)
@@ -83,43 +133,50 @@ def playNote(midiVal, velocity=60, duration=1000, instrument=0):
 # -1 will play a rest since 0 technically represents C
 # The speed of playback is determined by the TEMPO variable
 # Velocity can be a number or a list (even rests have velocities)
-def playLine(midiLine, noteLength="quarter", velocity=60, instrument=0):
-	if type(midiLine) != list:
+# 	Implement: Velocity can be a crescendo or decrescendo calculated by list length
+def playLine(noteLine, noteLength=4, velocity=60, instrument=0):
+	if type(noteLine) != list:
 		print("The playLine function must take in a list of MIDI notes. For example: [60, 62, 63]")
 		return
 
-	duration = calculateNoteDuration(noteLength)
+	if splitNoteLine(noteLine, noteLength) == False:
+		return False
+	else:
+		midiLine, rhythmLine = splitNoteLine(noteLine, noteLength)
 
 	if type(velocity) == int or type(velocity) == float:
-		[playNote(midiVal, velocity, duration, instrument) for midiVal in midiLine]
+		# Implement - midiVal may be a tuple, use the rhythm value if provided
+		[playNote(midiVal, velocity, rhythmVal, instrument) for midiVal, rhythmVal in zip(midiLine, rhythmLine)]
 	elif type(velocity) == list:
+		# Implement the ability for a shorter velocity list to function (low priority)
 		if len(midiLine) == len(velocity):
-			[playNote(midiVal, velocityVal, duration, instrument) for midiVal, velocityVal in zip(midiLine, velocity)]
+			[playNote(midiVal, velocityVal, duration, instrument) for midiVal, rhythmVal, velocityVal in zip(midiLine, rhythmLine, velocity)]
 		else:
-			print("Velocity list is not the same length as the MIDI note list: Playing with velocity of 60")
-			[playNote(midiVal, 60, duration, instrument) for midiVal in midiLine]
+			print("Velocity list is not the same length as the MIDI note list: Playing with volume of mf")
+			[playNote(midiVal, mf, rhythmVal, instrument) for midiVal, rhythmVal in zip(midiLine, rhythmLine)]
 
 
 # ---------------------Map Functions---------------------
 
 # Will transpose a list of midinotes, the number of steps provided
-def transpose(midiLine, numSteps):
-	if type(midiLine) != list:
+def transpose(noteLine, numSteps):
+	if type(noteLine) != list:
 		print("The transpose function must take in a list of MIDI notes. For example: [60, 62, 63]")
 		return
 
-	return list(map((lambda midiNote: midiNote + numSteps), midiLine))
+	return list(map((lambda note: returnNoteWithNewPitch(note, getPitch(note) + numSteps)), noteLine))
 
 # changes placement of all pitches and rests
-def shuffleLine(midiLine):
-	if type(midiLine) != list:
+def shuffleLine(noteLine):
+	if type(noteLine) != list:
 		print("The shuffleLine function must take in a list of MIDI notes. For example: [60, 62, 63]")
 		return
-	copy = list(midiLine)
+	copy = list(noteLine)
 	random.shuffle(copy)
 	return copy
 
 # Changes pitches, maintains rhythm
+# Does not work with tuples update
 def shufflePitches(midiLine):
 	if type(midiLine) != list:
 		print("The shufflePitches function must take in a list of MIDI notes. For example: [60, 62, 63]")
@@ -138,6 +195,7 @@ def shufflePitches(midiLine):
 	return newLine
 
 # Changes rhythm, maintains pitches
+# Does not work with tuples update
 def shuffleRests(midiLine):
 	if type(midiLine) != list:
 		print("The shuffleRests function must take in a list of MIDI notes. For example: [60, 62, 63]")
@@ -159,6 +217,8 @@ def shuffleRests(midiLine):
 # Main shows example usage of each function
 def main():
 	# Test setup/helper functions
+	print(TEMPO)
+	print(getTempo())
 	print(TEMPO)
 	print(half)
 	print(calculateNoteDuration(half))

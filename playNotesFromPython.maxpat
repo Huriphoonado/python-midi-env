@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 899.0, 79.0, 493.0, 350.0 ],
+		"rect" : [ 899.0, 79.0, 493.0, 352.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -37,6 +37,22 @@
 		"style" : "",
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-12",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 259.0, 182.0, 150.0, 47.0 ],
+					"presentation" : 1,
+					"presentation_linecount" : 3,
+					"presentation_rect" : [ 7.0, 156.0, 81.0, 47.0 ],
+					"style" : "",
+					"text" : "C5\nC_Sharp5\nD_Flat5"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-14",
 					"maxclass" : "comment",
@@ -78,7 +94,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 29.0, 364.0, 50.0, 22.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 9.0, 114.0, 61.353058, 22.0 ],
+					"presentation_rect" : [ 9.0, 114.0, 62.0, 22.0 ],
 					"style" : ""
 				}
 
@@ -96,7 +112,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 133.25, 398.0, 50.0, 22.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 146.462341, 114.0, 61.353058, 22.0 ],
+					"presentation_rect" : [ 146.462341, 114.0, 62.0, 22.0 ],
 					"style" : ""
 				}
 
@@ -113,7 +129,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 237.5, 425.0, 50.0, 22.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 283.924683, 114.0, 61.353058, 22.0 ],
+					"presentation_rect" : [ 283.924683, 114.0, 62.0, 22.0 ],
 					"style" : ""
 				}
 
@@ -129,7 +145,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 228.0, 237.0, 50.0, 22.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 421.386963, 114.0, 61.353058, 22.0 ],
+					"presentation_rect" : [ 421.386963, 114.0, 62.0, 22.0 ],
 					"style" : ""
 				}
 
@@ -211,7 +227,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 29.0, 66.0, 104.0, 35.0 ],
 					"style" : "",
-					"text" : "/playNote 71 100 83.333336 16"
+					"text" : "/playNote 63 60 1000 0"
 				}
 
 			}
