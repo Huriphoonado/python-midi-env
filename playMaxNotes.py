@@ -73,11 +73,18 @@ def getPitch(object):
 		return object[0]
 
 # Set pitch function
-def returnNoteWithNewPitch(object, midiToSet):
+# Do not alter a rest unless specified by the function call
+def returnNoteWithNewPitch(object, midiToSet, changeRest=False):
 	if type(object) == int or type(object) == float:
-		return midiToSet
+		if object == -1 and changeRest==False:
+			return -1
+		else:
+			return midiToSet
 	elif type(object) == tuple:
-		return (midiToSet, object[1])
+		if object[0] == -1 and changeRest==False:
+			return (-1, object[1])
+		else:
+			return (midiToSet, object[1])
 
 # Read rhythm function
 def getRhythm(object):
@@ -212,10 +219,15 @@ def shuffleLine(noteLine):
 
 # Changes pitches, maintains rhythm
 # Does not work with tuples update
-def shufflePitches(midiLine):
-	if type(midiLine) != list:
-		print("The shufflePitches function must take in a list of MIDI notes. For example: [60, 62, 63]")
+def shufflePitches(noteLine):
+	if type(noteLine) != list:
+		print("The shufflePitches function must take in a list of notes. For example: [60, 62, 63]")
 		return
+
+	if splitNoteLine(noteLine) == False:
+		return False
+	else:
+		midiLine, rhythmLine = splitNoteLine(noteLine)
 
 	# remove all the rests and shuffle the order of the pitches
 	filteredLine = shuffleLine(list(filter((lambda nonRest: nonRest != -1), midiLine)))
@@ -227,14 +239,18 @@ def shufflePitches(midiLine):
 		else:
 			newLine.append(-1)
 
-	return newLine
+	return list(zip(newLine, rhythmLine))
 
 # Changes rhythm, maintains pitches
-# Does not work with tuples update
-def shuffleRests(midiLine):
-	if type(midiLine) != list:
-		print("The shuffleRests function must take in a list of MIDI notes. For example: [60, 62, 63]")
+def shuffleRhythms(noteLine):
+	if type(noteLine) != list:
+		print("The shuffleRests function must take in a list of notes. For example: [60, 62, 63]")
 		return
+
+	if splitNoteLine(noteLine) == False:
+		return False
+	else:
+		midiLine, rhythmLine = splitNoteLine(noteLine)
 
 	# remove all the rests
 	filteredLine = list(filter((lambda nonRest: nonRest != -1), midiLine))
@@ -244,8 +260,10 @@ def shuffleRests(midiLine):
 	for i in range(numRests):
 		filteredLine.insert(random.randint(0, len(filteredLine)), -1)
 
-	return filteredLine
+	shuffledRhythms = list(rhythmLine)
+	random.shuffle(shuffledRhythms)
 
+	return list(zip(filteredLine, shuffledRhythms))
 
 # ---------------------Tests---------------------
 
