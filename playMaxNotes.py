@@ -29,6 +29,7 @@ args = parser.parse_args()
 client = udp_client.UDPClient(args.ip, args.port)
 
 TEMPO = 120 # Global tempo variable, determines playback of a line
+defaultDur = quarter # Default duration is quarter note if none provided
 
 def setTempo(tempo):
 	global TEMPO
@@ -93,15 +94,15 @@ def returnNoteWithNewRhythm(object, rhythmToSet):
 		return (object[0], rhythmToSet)
 
 # Call function to split up noteLine into pitches and rhythms
-# If a rhythmic value exists use that, if it does not exist, use the default or provided
-def splitNoteLine(noteLine, noteLength):
+# If a rhythmic value exists use that, otherwise, default quarterNote
+def splitNoteLine(noteLine):
 	midiLine = []
 	rhythmLine = []
 
 	for note in noteLine:
 		if type(note) == int or type(note) == float:
 			midiLine.append(note)
-			rhythmLine.append(noteLength)
+			rhythmLine.append(defaultDur)
 		elif type(note) == tuple:
 			midiLine.append(note[0])
 			rhythmLine.append(note[1])
@@ -134,15 +135,15 @@ def playNote(midiVal, velocity=60, noteLength=4, instrument=0):
 # The speed of playback is determined by the TEMPO variable
 # Velocity can be a number or a list (even rests have velocities)
 # 	Implement: Velocity can be a crescendo or decrescendo calculated by list length
-def playLine(noteLine, noteLength=4, velocity=60, instrument=0):
+def playLine(noteLine, velocity=60, instrument=0):
 	if type(noteLine) != list:
 		print("The playLine function must take in a list of MIDI notes. For example: [60, 62, 63]")
 		return
 
-	if splitNoteLine(noteLine, noteLength) == False:
+	if splitNoteLine(noteLine) == False:
 		return False
 	else:
-		midiLine, rhythmLine = splitNoteLine(noteLine, noteLength)
+		midiLine, rhythmLine = splitNoteLine(noteLine)
 
 	if type(velocity) == int or type(velocity) == float:
 		# Implement - midiVal may be a tuple, use the rhythm value if provided
@@ -157,6 +158,40 @@ def playLine(noteLine, noteLength=4, velocity=60, instrument=0):
 
 
 # ---------------------Map Functions---------------------
+
+# Augment Rhythm
+def augment(noteLine):
+	if type(noteLine) != list:
+		print("The augment function must take in a list of MIDI notes. For example: [60, 62, 63]")
+		return
+
+	augmentedLine = []
+	for note in noteLine:
+		originalDur = getRhythm(note)
+		if originalDur == None:
+			augmentedLine.append(returnNoteWithNewRhythm(note, defaultDur/2))
+		else:
+			augmentedLine.append(returnNoteWithNewRhythm(note, originalDur/2))
+
+	return augmentedLine
+
+# Diminute Rhythm Function
+def diminute(noteLine):
+	if type(noteLine) != list:
+		print("The diminut function must take in a list of MIDI notes. For example: [60, 62, 63]")
+		return
+
+	diminishedLine = []
+	for note in noteLine:
+		originalDur = getRhythm(note)
+		if originalDur == None:
+			diminishedLine.append(returnNoteWithNewRhythm(note, defaultDur*2))
+		else:
+			diminishedLine.append(returnNoteWithNewRhythm(note, originalDur*2))
+
+	return diminishedLine
+
+# Apply Dynamics Function (value, list, crescendo or decresendo)
 
 # Will transpose a list of midinotes, the number of steps provided
 def transpose(noteLine, numSteps):
@@ -239,14 +274,14 @@ def main():
 	for i in range(len(cScale)):
 		randomVelocities.append(randomMIDIVal())
 
-	playLine(cScale, eighth)
-	playLine(cScale, sixteenth, randomVelocities, 18)
+	playLine(cScale)
+	playLine(cScale, randomVelocities, 18)
 
 	# Test the map functions
-	playLine(transpose(cScale, 2), sixteenth, 100, 16)
-	playLine(shuffleLine(cScale), sixteenth, 100, 16)
-	playLine(shuffleRests(cScale), sixteenth, 100, 16)
-	playLine(shufflePitches(cScale), sixteenth, 100, 16)
+	playLine(transpose(cScale, 2), 100, 16)
+	playLine(shuffleLine(cScale), 100, 16)
+	#playLine(shuffleRests(cScale) 100, 16)
+	#playLine(shufflePitches(cScale) 100, 16)
 
 if __name__ == '__main__':
 	main()
