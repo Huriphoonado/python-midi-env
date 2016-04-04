@@ -198,6 +198,65 @@ def diminute(noteLine):
 
 	return diminishedLine
 
+
+#	Takes a noteLine and transforms groups of two eight notes into quarter note triplet and eight note triplet.
+#	Prerequisite: noteLine rhythm values are in a valid n/4 meter and are eighths or longer, sixteenths may not quantize correctly yet
+#
+# @parameter noteLine - { list[int] | list[(int,int)] }
+# @parameter tonic - int - midi value of tonic note
+#
+# @return { list[int] | list[(int,int)] } - type matches noteLine
+def swing( noteLine ):
+	if type(noteLine) != list:
+		print("The swing function must take in a list of MIDI notes. For example: [60, 62, 63]")
+		return
+
+	newNoteLine = []
+	musicalCount = 0
+	i = 0
+	while( i < len( noteLine ) ):
+		print ( "pre count:", i, musicalCount )
+
+		# two eights at the beginning of a beat
+		if i <= len( noteLine ) - 2 and musicalCount * 4 % 1 == 0 and getRhythm( noteLine[i] ) == eighth and getRhythm( noteLine[i+1] ) == eighth:
+			musicalCount += ( 1 / getRhythm( noteLine[i] ) ) + ( 1 / getRhythm( noteLine[i+1] ) )
+			newNoteLine += [ (noteLine[ i ][0], quarterTriplet) ]
+			newNoteLine += [ (noteLine[ i + 1 ][0], eighthTriplet) ]	
+			i += 2
+
+		# eight + quarter at the beginning of a beat ( syncopations )
+		elif i <= len( noteLine ) - 2 and musicalCount * 4 % 1 == 0 and getRhythm( noteLine[i] ) == eighth and getRhythm( noteLine[i+1] ) == quarter:
+			musicalCount += 1 / getRhythm( noteLine[i] )
+			newNoteLine += [ (noteLine[ i ][0], quarterTriplet) ]
+			i += 1
+			done = False
+			while( (not done) and i < len( noteLine ) and ( getRhythm( noteLine[i] ) == quarter or getRhythm( noteLine[i] ) == eighth ) ):
+				musicalCount += 1 / getRhythm( noteLine[i] )
+
+				# Syncopation ends expectedly: eight -> eigthTriplet
+				if getRhythm( noteLine[i] ) == eighth:
+					newNoteLine += [ (noteLine[ i ][0], eighthTriplet) ]
+					done = True
+				# Syncopation continues for another beat: quarter -> quarter
+				elif getRhythm( noteLine[i+1] ) == quarter or getRhythm( noteLine[i+1] ) == eighth:
+					newNoteLine += [ noteLine[i] ]
+				#Syncopation ends unexpectedly i.e. eighth + quarter[one or more] + !eighth: quarter -> (eighthTriplet + eighth) == 25/8
+				else:
+					newNoteLine += [ (noteLine[ i ][0], 25 / 8) ]
+					done = True
+				
+				i += 1
+
+		# Non-swung rhythm
+		else:
+			newNoteLine += [ noteLine[ i ] ]
+			musicalCount +=  1 / getRhythm( noteLine[i] )
+			i += 1
+
+		print ( "post count:", musicalCount )
+
+	return newNoteLine
+
 # Apply Dynamics Function (value, list, crescendo or decresendo)
 
 # Will transpose a list of midinotes, the number of steps provided
