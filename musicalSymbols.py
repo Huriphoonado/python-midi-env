@@ -1,4 +1,5 @@
 # ---------------------Pitches---------------------
+REST = -1
 C0 = 0
 C_Sharp0 = 1
 D_Flat0 = 1
@@ -168,3 +169,5 @@ half = 2
 quarter = 4
 eighth = 8
 sixteenth = 16
+quarterTriplet = 6
+eighthTriplet = 12

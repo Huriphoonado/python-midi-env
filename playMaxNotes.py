@@ -185,7 +185,7 @@ def augment(noteLine):
 # Diminute Rhythm Function
 def diminute(noteLine):
 	if type(noteLine) != list:
-		print("The diminut function must take in a list of MIDI notes. For example: [60, 62, 63]")
+		print("The diminute function must take in a list of MIDI notes. For example: [60, 62, 63]")
 		return
 
 	diminishedLine = []
@@ -207,6 +207,34 @@ def transpose(noteLine, numSteps):
 		return
 
 	return list(map((lambda note: returnNoteWithNewPitch(note, getPitch(note) + numSteps)), noteLine))
+
+# Creates a new list, which copies noteLine and substitutes major 3rds/6ths with minor 3rds/6ths relative to tonic.
+# This method is immutable and does not change the input noteLine
+#
+# @parameter noteLine - { list[int] | list[(int,int)] }
+# @parameter tonic - int - midi value of tonic note
+#
+# @return { list[int] | list[(int,int)] } - type matches noteLine
+def noteLineToMinor( noteLine, tonic ):
+	if type(noteLine) != list:
+		print("The noteLineToMinor function must take in a list of MIDI notes. For example: [60, 62, 63]")
+		return
+
+	return list( map( ( lambda note: getPitch(note) - 1 if ( getPitch(note) - ( tonic % 12 ) ) % 12 in [ 4, 9 ] else getPitch(note) ), noteLine ) )
+
+# Creates a new list, which copies noteLine and substitutes minor 3rds/6ths with major 3rds/6ths relative to tonic.
+# This method is immutable and does not change the input noteLine
+#
+# @parameter noteLine - { list[int] | list[(int,int)] }
+# @parameter tonic - int - midi value of tonic note
+#
+# @return { list[int] | list[(int,int)] } - type matches noteLine
+def noteLineToMajor( noteLine, tonic ):
+	if type(noteLine) != list:
+		print("The noteLineToMajor function must take in a list of MIDI notes. For example: [60, 62, 63]")
+		return
+	return list( map( ( lambda note: getPitch(note) + 1 if ( getPitch(note) - ( tonic % 12 ) ) % 12 in [ 3, 8 ] else getPitch(note) ), noteLine ) )
+
 
 # changes placement of all pitches and rests
 def shuffleLine(noteLine):
