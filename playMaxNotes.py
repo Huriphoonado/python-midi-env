@@ -89,7 +89,7 @@ def returnNoteWithNewPitch(object, midiToSet, changeRest=False):
 # Read rhythm function
 def getRhythm(object):
 	if type(object) == int or type(object) == float:
-		return None
+		return defaultDur
 	elif type(object) == tuple:
 		return object[1]
 
@@ -125,7 +125,7 @@ def splitNoteLine(noteLine):
 # MIDI note value required, other parameters optional
 # Currently, notes last full duration
 # 	Could consider adding a staccato/legato parameter
-def playNote(midiVal, velocity=60, noteLength=4, instrument=0):
+def playNote(midiVal, velocity=60 , instrument=0, noteLength=4):
 	duration = calculateNoteDuration(noteLength)
 	if midiVal != -1:
 		msg = osc_message_builder.OscMessageBuilder(address = "/playNote")
@@ -154,14 +154,14 @@ def playLine(noteLine, velocity=60, instrument=0):
 
 	if type(velocity) == int or type(velocity) == float:
 		# Implement - midiVal may be a tuple, use the rhythm value if provided
-		[playNote(midiVal, velocity, rhythmVal, instrument) for midiVal, rhythmVal in zip(midiLine, rhythmLine)]
+		[playNote(midiVal, velocity, instrument, rhythmVal) for midiVal, rhythmVal in zip(midiLine, rhythmLine)]
 	elif type(velocity) == list:
 		# Implement the ability for a shorter velocity list to function (low priority)
 		if len(midiLine) == len(velocity):
-			[playNote(midiVal, velocityVal, duration, instrument) for midiVal, rhythmVal, velocityVal in zip(midiLine, rhythmLine, velocity)]
+			[playNote(midiVal, velocityVal, instrument, rhythmVal) for midiVal, rhythmVal, velocityVal in zip(midiLine, rhythmLine, velocity)]
 		else:
 			print("Velocity list is not the same length as the MIDI note list: Playing with volume of mf")
-			[playNote(midiVal, mf, rhythmVal, instrument) for midiVal, rhythmVal in zip(midiLine, rhythmLine)]
+			[playNote(midiVal, mf, instrument, rhythmVal) for midiVal, rhythmVal in zip(midiLine, rhythmLine)]
 
 
 # ---------------------Map Functions---------------------
@@ -221,7 +221,7 @@ def swing( noteLine ):
 		if i <= len( noteLine ) - 2 and musicalCount * 4 % 1 == 0 and getRhythm( noteLine[i] ) == eighth and getRhythm( noteLine[i+1] ) == eighth:
 			musicalCount += ( 1 / getRhythm( noteLine[i] ) ) + ( 1 / getRhythm( noteLine[i+1] ) )
 			newNoteLine += [ (noteLine[ i ][0], quarterTriplet) ]
-			newNoteLine += [ (noteLine[ i + 1 ][0], eighthTriplet) ]	
+			newNoteLine += [ (noteLine[ i + 1 ][0], eighthTriplet) ]
 			i += 2
 
 		# eight + quarter at the beginning of a beat ( syncopations )
@@ -244,7 +244,7 @@ def swing( noteLine ):
 				else:
 					newNoteLine += [ (noteLine[ i ][0], 25 / 8) ]
 					done = True
-				
+
 				i += 1
 
 		# Non-swung rhythm
@@ -274,12 +274,12 @@ def transpose(noteLine, numSteps):
 # @parameter tonic - int - midi value of tonic note
 #
 # @return { list[int] | list[(int,int)] } - type matches noteLine
-def noteLineToMinor( noteLine, tonic ):
+def noteLineToMinor( noteLine, key ):
 	if type(noteLine) != list:
 		print("The noteLineToMinor function must take in a list of MIDI notes. For example: [60, 62, 63]")
 		return
 
-	return list( map( ( lambda note: getPitch(note) - 1 if ( getPitch(note) - ( tonic % 12 ) ) % 12 in [ 4, 9 ] else getPitch(note) ), noteLine ) )
+	return list( map( ( lambda note: getPitch(note) - 1 if ( getPitch(note) - ( key % 12 ) ) % 12 in [ 4, 9 ] else getPitch(note) ), noteLine ) )
 
 # Creates a new list, which copies noteLine and substitutes minor 3rds/6ths with major 3rds/6ths relative to tonic.
 # This method is immutable and does not change the input noteLine
@@ -288,11 +288,11 @@ def noteLineToMinor( noteLine, tonic ):
 # @parameter tonic - int - midi value of tonic note
 #
 # @return { list[int] | list[(int,int)] } - type matches noteLine
-def noteLineToMajor( noteLine, tonic ):
+def noteLineToMajor( noteLine, key ):
 	if type(noteLine) != list:
 		print("The noteLineToMajor function must take in a list of MIDI notes. For example: [60, 62, 63]")
 		return
-	return list( map( ( lambda note: getPitch(note) + 1 if ( getPitch(note) - ( tonic % 12 ) ) % 12 in [ 3, 8 ] else getPitch(note) ), noteLine ) )
+	return list( map( ( lambda note: getPitch(note) + 1 if ( getPitch(note) - ( key % 12 ) ) % 12 in [ 3, 8 ] else getPitch(note) ), noteLine ) )
 
 
 # changes placement of all pitches and rests
