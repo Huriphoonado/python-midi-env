@@ -69,7 +69,7 @@
 <div id="nav">
   <h1>Big Fancy Title</h1>
   <h5>
-    <!-- TODO: add sub-links here, at some point expandable text -->
+    <!-- TODO: add sub-links here, at some point expandable text, will require id's on all divs-->
     <div><a href="#getting-started">Getting Started</a></div>
     <div><a href="#make-sound">Make Sound</a></div>
     <div><a href="#sound-objects">Sound Objects</a></div>
@@ -87,12 +87,12 @@
 
   <div class="item">
     <code>from playMaxNotes include *</code>
-    <span>This line tells the computer that you are going to play some musical notes.</span>
+    <span>This line tells the computer that you are going to play some musical <a href="#note">note</a>s.</span>
   </div>
 
   <div class="item">
     <code>setTempo(bpm)</code>
-    <span>This lines sets the tempo of your piece.  <code>bpm</code> should be replaced with the number of quarter notes per minute.  For example, for an Allegro tempo use <code>120</code>.</span>
+    <span>This line sets the tempo of your piece.  <code>bpm</code> should be replaced with the number of quarter <a href="#note">note</a>s per minute.  For example, for an Allegro tempo use <code>120</code>.</span>
   </div>
 </div>
 
@@ -106,20 +106,21 @@
 
   <div class="item">
     <code>playList(noteLine, dynamic(optional), instrument(optional) )</code>
-    <span>This plays a noteLine.  The default dynamic is mf and the default instrument is piano.</span>
+    <span>This plays a <a href="#noteLine">noteLine</a>.  The default <a href="#dynamic">dynamic</a> is mf and the default <a href="#instrument">instrument</a> is piano.</span>
   </div>
 
 </div>
 
 <div id="sound-objects" class="section">
 <h2>Sound Objects</h2><hr>
-<h3>Use these commands to define the notes and melodies that the <a href="make-sound">Make Sound</a> commands will play.</h3>
+<h3>Use these commands to define the <a href="#note">note</a>s and <a href="#noteLine">noteLine</a>s that the <a href="make-sound">Make Sound</a> commands will play.</h3>
 
 <div id="pitch-value" class="item">
   <code>pitchValue</code><span>There are two options.</span>
   <ul>
     <li><code>number</code><span>The number will represent the midi value (0-127)</span></li>
-    <li><code>Scientific pitch notation</code><span>For example: C4 F_Sharp3 B_Flat5</li>
+    <li><code>Scientific pitch notation</code><span>For example: <code>C4</code>, <code>F_Sharp3</code>, or <code>B_Flat5</code></span>
+      <span><a href="#note-notation">See the full documentation</a></span></li>
   </ul>
 </div>
 
@@ -127,9 +128,10 @@
   <code>note</code><span>There are three options.</span>
   <ul>
     <li><code>Rest</code><span>Write in "Rest" to indicate silence</span>
-    <li><code>pitchValue</code><span> See the <a href="#pitch-value">preceding item</a>.  This assumes that the rhythm will be a quarter note</span></li>
+    <li><code>pitchValue</code><span> See the <a href="#pitch-value">preceding item</a>.  This assumes that the <a href="rhythm">rhythm</a> will be a quarter <a href="#note">note</a></span></li>
     <li>
-      <code>(pitchValue, rhythm)</code><span>Rhythm is the note name written out in lower case text.</span>
+      <code>(pitchValue, rhythm)</code><span>Rhythm is the value written out in lower case text.</span>
+      <span><a href="#rhythm-notation">See the full description for rhythm</a></span>
       <span>Examples: <code>(C4, quarter)</code> or <code>(B_Flat, half)</code></span>
       <span>The parentheses and comma are required.</span>
     </li>
@@ -137,48 +139,49 @@
 </div>
 
 <div id="noteLine" class="item">
-  <code>noteLine</code><span>This is a list of notes.  The square brackets and commas are required.</span>
-  <span>Example:<code>[ (C4, quarter), (E4, eighth), (F4, eighth), (G4, quarter) ]</code></span>
+  <code>noteLine</code><span>This is a list of <code>note</code>s.  The square brackets and commas are required.</span>
+  <span>Example:<code>[ (C4, quarter), (E4, eighth), (F4, eighth), G4 ]</code></span>
   <span>This is equivalent to:<img src="SCORE EXAMPLE"/></span>
 </div>
 
 <div id="instrument" class="item">
   <code>instrument</code><span>This is the name of a midi instrument.</span>
   <span>Example: <code>violin</code>, <code>piano</code>, <code>organ</code>.
-    <a href="#symbols">See full documentation</a>.</span>
+    <a href="#symbols">See the full list of available instruments.</a>.</span>
 </div>
 
 <div id="dynamic" class="item">
   <code>dynamic</code><span>This is the dynamic for the line.  There are two options.</span>
   <ul>
     <li>Musical notation of dynamics between <code>pp</code> and <code>ff</code>.</li>
-    <li>A number between <code>0</code> and <code>127</code>.  127 is full computer volume and 0 is silent. <a href="#symbols">See full documentation</a></li>
+    <li>A number between <code>0</code> and <code>127</code>.  127 is full computer volume and 0 is silent. </li>
   </ul>
+  <span><a href="#dynamic-notation">See full description of dynamic values</a></span>
 </div>
 </div>
 
 
 <div id="musical-transformations" class="section">
   <h2>Musical Transformations</h2><hr/>  
-  <h3>These commands perform some function on a <code>noteLine</code> that you have contructed.</h3>
+  <h3>These commands perform some function on a <a href="#noteLine">noteLine</a> that you have contructed.</h3>
 
   <div class="item">
-    <code>augment(noteLine)</code><span>Accepts a noteLine.  Returns a noteLine that is half as fast rhythmically.</span>
+    <code>augment(noteLine)</code><span>Accepts a <a href="#noteLine">noteLine</a>.  Returns a <a href="#noteLine">noteLine</a> that is half as fast rhythmically.</span>
   </div>
 
-  <div id="diminute" class="item"><code>diminute(noteLine)</code><span>Accepts a noteLine.  Returns a noteLine that is twice as fast rhythmically.</span>
+  <div id="diminute" class="item"><code>diminute(noteLine)</code><span>Accepts a <a href="#noteLine">noteLine</a>.  Returns a <a href="#noteLine">noteLine</a> that is twice as fast rhythmically.</span>
   </div>
 
-  <div class="item"><code>swing(noteLine)</code><span>Accepts a noteLine that is in a valid quarter meter (i,e, 2/4, 4/4). Returns a noteline where the eighth notes and quarter notes are in a triplet swing rhythm.</span>
+  <div class="item"><code>swing(noteLine)</code><span>Accepts a <a href="#noteLine">noteLine</a> that is in a valid quarter meter (i,e, 2/4, 4/4). Returns a <a href="#noteLine">noteLine</a> where the eighth <a href="#note">note</a>s and quarter <a href="#note">note</a>s are in a triplet swing rhythm.</span>
   </div>
 
-  <div class="item"><code>transpose(noteLine, numSteps)</code><span>Accepts a noteline.  Returns a noteLine that is in a new key <code>numSteps</code> away from the original.</span>
+  <div class="item"><code>transpose(noteLine, numSteps)</code><span>Accepts a <a href="#noteLine">noteLine</a>.  Returns a <a href="#noteLine">noteLine</a> that is in a new key <code>numSteps</code> away from the original.</span>
   </div>
 
-  <div class="item"><code>noteLineToMinor(noteLine, key)</code><span>Accepts a noteLine and a note that is the root of a key.  It returns a noteLine where the major 3rds and 6ths have been transformed to minor.</span>
+  <div class="item"><code>noteLineToMinor(noteLine, key)</code><span>Accepts a <a href="#noteLine">noteLine</a> and a <a href="#note">note</a> that is the root of a key.  It returns a <a href="#noteLine">noteLine</a> where the major 3rds and 6ths have been transformed to minor.</span>
   </div>
 
-  <div class="item"><code>noteLineToMajor(noteLine, key)</code><span>Accepts a noteLine and a note that is the root of a key.  It returns a noteLine where the minor 3rds and 6ths have been transformed to minor.</span>
+  <div class="item"><code>noteLineToMajor(noteLine, key)</code><span>Accepts a <a href="#noteLine">noteLine</a> and a <a href="#note">note</a> that is the root of a key.  It returns a <a href="#noteLine">noteLine</a> where the minor 3rds and 6ths have been transformed to minor.</span>
   </div>
 
   <div class="item"><code>shuffleLine(noteLine)</code><span>DOCUMENTATION HERE</span>
@@ -195,7 +198,7 @@
   <h2>Musical Symbols</h2><hr/>
   <h3>These represent fundamental values that you will use to create a <code>noteLine</code> and play sounds.</h3>
   
-  <div class="item">
+  <div id="note-notation" class="item">
     <h3>Notes</h3>
     <span>Capital letter + ( optional:  underscore + ( Sharp or Flat ) ) + register</span>
     <span>Examples:</span>
@@ -206,16 +209,16 @@
     </ul>
   </div>
 
-  <div class="item">
+  <div id="rhythm-notation" class="item">
     <h3>Rhythms</h3>
     <span>All lower case name of rhythm written out.</span>
     <span>Available rhythms are <code>whole</code>,<code>half</code>,<code>quarter</code>,<code>eighth</code>,<code>sixteenth</code>,<code>quarterTriplet</code>,<code>eighthTriplet</code></span>
     <br>
-    <span>If there is a rhythm that you do not see here that you want to use, such as a dotted quarter note, you can add the appropriate amount of rest at the end of one of the existing notes.</span>
-    <span>Smaller rhythms (such as thirty-second notes) are not available directly. Try using <a href="#diminute"><code>diminute</code></a>!</span>
+    <span>If there is a rhythm that you do not see here that you want to use, such as a dotted quarter <a href="#note">note</a>, you can add the appropriate amount of rest at the end of one of the existing <a href="#note">note</a>s.</span>
+    <span>Smaller rhythms (such as thirty-second <a href="#note">note</a>s) are not available directly. Try using <a href="#diminute"><code>diminute</code></a>!</span>
   </div>
 
-  <div class="item">
+  <div id="dynamic-notation" class="item">
     <h3>Dynamics</h3>
     <span>All lower case musical abbreviation of the dynamic.</span>
     <span>Available dynamics are <code>ppp</code>,<code>pp</code>,<code>p</code>,<code>mp</code>,<code>mf</code>,<code>f</code>,<code>ff</code>,<code>fff</code></span>
