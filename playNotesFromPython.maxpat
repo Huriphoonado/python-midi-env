@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 899.0, 79.0, 493.0, 352.0 ],
+		"rect" : [ 899.0, 79.0, 493.0, 148.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -38,22 +38,6 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
-					"id" : "obj-12",
-					"linecount" : 3,
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 259.0, 182.0, 150.0, 47.0 ],
-					"presentation" : 1,
-					"presentation_linecount" : 3,
-					"presentation_rect" : [ 7.0, 156.0, 81.0, 47.0 ],
-					"style" : "",
-					"text" : "C5\nC_Sharp5\nD_Flat5"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"id" : "obj-14",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -63,22 +47,6 @@
 					"presentation_rect" : [ 19.676529, 93.0, 40.0, 20.0 ],
 					"style" : "",
 					"text" : "Pitch"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"autofit" : 1,
-					"forceaspect" : 1,
-					"id" : "obj-10",
-					"maxclass" : "fpic",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "jit_matrix" ],
-					"patching_rect" : [ 273.5, 299.554016, 100.0, 60.891937 ],
-					"pic" : "Macintosh HD:/Users/williepayne/Desktop/csLearningFinal/Pitch_notation.png",
-					"presentation" : 1,
-					"presentation_rect" : [ 90.0, 149.0, 310.0, 188.765015 ]
 				}
 
 			}
@@ -453,13 +421,7 @@
 
 			}
  ],
-		"dependency_cache" : [ 			{
-				"name" : "Pitch_notation.png",
-				"bootpath" : "~/Desktop/csLearningFinal",
-				"type" : "PNG ",
-				"implicit" : 1
-			}
- ],
+		"dependency_cache" : [  ],
 		"embedsnapshot" : 0
 	}
 

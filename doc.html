@@ -138,7 +138,7 @@
 
 <div id="noteLine" class="item">
   <code>noteLine</code><span>This is a list of notes.  The square brackets and commas are required.</span>
-  <span>Example:<code>[ (C4, quarter), (E4, eighth), (F4, eighth), (G4, quarter) ]</code></span>
+  <span>Example:<code>[ (C4, quarter), (E4, eighth), (F4, eighth), (G4, quarter), Rest ]</code></span>
   <span>This is equivalent to:<img src="SCORE EXAMPLE"/></span>
 </div>
 
@@ -159,7 +159,7 @@
 
 
 <div id="musical-transformations" class="section">
-  <h2>Musical Transformations</h2><hr/>  
+  <h2>Musical Transformations</h2><hr/>
   <h3>These commands perform some function on a <code>noteLine</code> that you have contructed.</h3>
 
   <div class="item">
@@ -172,7 +172,7 @@
   <div class="item"><code>swing(noteLine)</code><span>Accepts a noteLine that is in a valid quarter meter (i,e, 2/4, 4/4). Returns a noteline where the eighth notes and quarter notes are in a triplet swing rhythm.</span>
   </div>
 
-  <div class="item"><code>transpose(noteLine, numSteps)</code><span>Accepts a noteline.  Returns a noteLine that is in a new key <code>numSteps</code> away from the original.</span>
+  <div class="item"><code>transpose(noteLine, numSteps)</code><span>Accepts a noteLine.  Returns a noteLine that is in a new key <code>numSteps</code> away from the original.</span>
   </div>
 
   <div class="item"><code>noteLineToMinor(noteLine, key)</code><span>Accepts a noteLine and a note that is the root of a key.  It returns a noteLine where the major 3rds and 6ths have been transformed to minor.</span>
@@ -194,7 +194,7 @@
 <div id="symbols" class="section">
   <h2>Musical Symbols</h2><hr/>
   <h3>These represent fundamental values that you will use to create a <code>noteLine</code> and play sounds.</h3>
-  
+
   <div class="item">
     <h3>Notes</h3>
     <span>Capital letter + ( optional:  underscore + ( Sharp or Flat ) ) + register</span>
@@ -312,7 +312,7 @@
       </tr>
     </table>
   </div>
-</div>  
+</div>
 </div>
 </body>
 </html>
