@@ -1,0 +1,60 @@
+body {
+  background-color: #white;
+  color: black;
+  font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+  width: 880px;
+  padding: 20px;
+  margin: auto;
+}
+
+code {
+  background: #eee;
+  color: #015763;
+  padding: 3px;
+  margin: 0px 4px;
+  font-weight: bold;
+}
+
+
+
+h1, h2 {
+  color: #482D00;
+}
+h2 {
+  margin-top: 60px;
+}
+
+div.item {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #ccc;
+}
+span {
+  display: block;
+  margin: 5px 30px;
+}
+
+table {
+  border-collapse: collapse;
+  margin-left: 40px;
+  border: 1px solid #ddd;
+}
+
+td {
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 5px;
+}
+div#nav {
+  position: fixed;
+  width: 180px;
+}
+
+div#content {
+    margin-left: 180px;
+}
+
+img {
+  height: 50px;
+  display: block;
+}
