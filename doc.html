@@ -6,7 +6,7 @@
     background-color: #111;
     color: #ddd;
     font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
-    max-width: 768px;
+    max-width: 850px;
     padding: 20px;
     margin: auto;
   }
@@ -141,7 +141,7 @@
 <div id="noteLine" class="item">
   <code>noteLine</code><span>This is a list of notes.  The square brackets and commas are required.</span>
   <span>Example:<code>[ (C4, quarter), (E4, eighth), (F4, eighth), (G4, quarter), Rest ]</code></span>
-  <span>This is equivalent to:<img src="SCORE EXAMPLE"/></span>
+  <span>This is equivalent to: <img src="images/noteLine.png" width=50%/></span>
 </div>
 
 <div id="instrument" class="item">
@@ -167,30 +167,48 @@
 
   <div class="item">
     <code>augment(noteLine)</code><span>Accepts a <a href="#noteLine">noteLine</a>.  Returns a <a href="#noteLine">noteLine</a> that is half as fast rhythmically.</span>
+    <span>Example: <code>augment([C4, D4, E4, F4])</code></span>
+    <span><img src="images/augment1.png" height=50/> becomes <img src="images/augment2.png" height=50/></span>
   </div>
 
   <div id="diminute" class="item"><code>diminute(noteLine)</code><span>Accepts a <a href="#noteLine">noteLine</a>.  Returns a <a href="#noteLine">noteLine</a> that is twice as fast rhythmically.</span>
+    <span>Example: <code>diminute([C4, D4, E4, F4])</code></span>
+    <span><img src="images/diminute1.png" height=60/> becomes <img src="images/diminute2.png" height=60/></span>
   </div>
 
   <div class="item"><code>swing(noteLine)</code><span>Accepts a <a href="#noteLine">noteLine</a> that is in a valid quarter meter (i,e, 2/4, 4/4). Returns a <a href="#noteLine">noteLine</a> where the eighth <a href="#note">note</a>s and quarter <a href="#note">note</a>s are in a triplet swing rhythm.</span>
+    <span>Example: <code>swing([(C4, eighth), (D4, eighth), (E4, eighth), (F4, eighth)])</code></span>
+    <span><img src="images/swing1.png" height=60/> becomes <img src="images/swing2.png" height=60/></span>
   </div>
 
   <div class="item"><code>transpose(noteLine, numSteps)</code><span>Accepts a <a href="#noteLine">noteLine</a>.  Returns a <a href="#noteLine">noteLine</a> that is in a new key <code>numSteps</code> away from the original.</span>
+    <span>Example: <code>transpose([C4, D4, E4, F4], 2)</code></span>
+    <span><img src="images/transpose1.png" height=60/> becomes <img src="images/transpose2.png" height=60/></span>
   </div>
 
-  <div class="item"><code>noteLineToMinor(noteLine, key)</code><span>Accepts a <a href="#noteLine">noteLine</a> and a <a href="#note">note</a> that is the root of a key.  It returns a <a href="#noteLine">noteLine</a> where the major 3rds and 6ths have been transformed to minor.</span>
+  <div class="item"><code>noteLineToMinor(noteLine, key)</code><span>Accepts a <a href="#noteLine">noteLine</a> and a <a href="#note">note</a> that is the root of a key.  Returns a <a href="#noteLine">noteLine</a> where the major 3rds and 6ths have been transformed to minor.</span>
+    <span>Example: <code>noteLineToMinor([C4, E4, G4, C5], C4)</code></span>
+    <span><img src="images/majorToMinor1.png" height=60/> becomes <img src="images/majorToMinor2.png" height=60/></span>
   </div>
 
-  <div class="item"><code>noteLineToMajor(noteLine, key)</code><span>Accepts a <a href="#noteLine">noteLine</a> and a <a href="#note">note</a> that is the root of a key.  It returns a <a href="#noteLine">noteLine</a> where the minor 3rds and 6ths have been transformed to minor.</span>
+  <div class="item"><code>noteLineToMajor(noteLine, key)</code><span>Accepts a <a href="#noteLine">noteLine</a> and a <a href="#note">note</a> that is the root of a key.  Returns a <a href="#noteLine">noteLine</a> where the minor 3rds and 6ths have been transformed to minor.</span>
+    <span>Example: <code>noteLineToMajor([D4, F4, A4, D5], D4)</code></span>
+    <span><img src="images/minorToMajor1.png" height=60/> becomes <img src="images/minorToMajor2.png" height=60/></span>
   </div>
 
-  <div class="item"><code>shuffleLine(noteLine)</code><span>DOCUMENTATION HERE</span>
+  <div class="item"><code>shuffleLine(noteLine)</code><span>Accepts a noteLine. Add some randomness to your melody! Returns the line where all pitches and rhythms are shuffled.</span>
+    <span>Example: <code>shuffleLine([(C4, quarter), (D4, eighth), (E4, eighth), (F4, half)])</code></span>
+    <span><img src="images/shuffleLine1.png" height=60/> becomes <img src="images/shuffleLine2.png" height=60/></span>
   </div>
 
-  <div class="item"><code>shufflePitches(noteLine)</code><span>DOCUMENTATION HERE</span>
+  <div class="item"><code>shufflePitches(noteLine)</code><span>Accepts a noteLine. Returns the line with the same rhythm, but random pitch ordering.</span>
+    <span>Example: <code>shufflePitches([(C4, quarter), (D4, eighth), (E4, eighth), (F4, half)])</code></span>
+    <span><img src="images/shufflePitches1.png" height=60/> becomes <img src="images/shufflePitches2.png" height=60/></span>
   </div>
 
-  <div class="item"><code>shuffleRhythms(noteLine)</code><span>DOCUMENTATION HERE</span>
+  <div class="item"><code>shuffleRhythms(noteLine)</code><span>Accepts a noteLine. Returns the line with the same pitch ordering, but random rhythm.</span>
+    <span>Example: <code>shuffleRhythms([(C4, quarter), (D4, eighth), (E4, eighth), (F4, half)])</code></span>
+    <span><img src="images/shuffleRhythms1.png" height=60/> becomes <img src="images/shuffleRhythms2.png" height=60/></span>
   </div>
 </div>
 
