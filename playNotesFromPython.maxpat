@@ -3,15 +3,15 @@
 		"fileversion" : 1,
 		"appversion" : 		{
 			"major" : 7,
-			"minor" : 0,
-			"revision" : 5,
-			"architecture" : "x86",
+			"minor" : 2,
+			"revision" : 0,
+			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 899.0, 79.0, 493.0, 148.0 ],
+		"openrect" : [ -1144.0, 153.0, 530.0, 172.0 ],
 		"bglocked" : 0,
-		"openinpresentation" : 0,
+		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
 		"default_fontface" : 0,
 		"default_fontname" : "Arial",
@@ -30,7 +30,7 @@
 		"boxanimatetime" : 200,
 		"enablehscroll" : 1,
 		"enablevscroll" : 1,
-		"devicewidth" : 0.0,
+		"devicewidth" : 530.0,
 		"description" : "",
 		"digest" : "",
 		"tags" : "",
@@ -152,7 +152,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 46.5, 108.0, 89.0, 60.0 ],
+					"patching_rect" : [ 46.5, 108.0, 89.0, 62.0 ],
 					"style" : "",
 					"text" : "midiVal\nvelocity=60\nduration=1000\ninstrument=0"
 				}
@@ -193,7 +193,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 29.0, 66.0, 104.0, 35.0 ],
+					"patching_rect" : [ 29.0, 66.0, 104.0, 36.0 ],
 					"style" : "",
 					"text" : "/playNote 63 60 1000 0"
 				}
@@ -396,7 +396,7 @@
 					"destination" : [ "obj-25", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 171.166672, 297.0, 264.0, 297.0, 264.0, 411.0, 247.0, 411.0 ],
+					"midpoints" : [ 171.166667, 297.0, 264.0, 297.0, 264.0, 411.0, 247.0, 411.0 ],
 					"source" : [ "obj-9", 2 ]
 				}
 
@@ -406,7 +406,7 @@
 					"destination" : [ "obj-27", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 104.833336, 297.0, 15.0, 297.0, 15.0, 396.0, 129.0, 396.0, 129.0, 393.0, 142.75, 393.0 ],
+					"midpoints" : [ 104.833333, 297.0, 15.0, 297.0, 15.0, 396.0, 129.0, 396.0, 129.0, 393.0, 142.75, 393.0 ],
 					"source" : [ "obj-9", 1 ]
 				}
 
@@ -422,7 +422,7 @@
 			}
  ],
 		"dependency_cache" : [  ],
-		"embedsnapshot" : 0
+		"autosave" : 0
 	}
 
 }
