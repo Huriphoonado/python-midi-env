@@ -239,3 +239,7 @@ fiddle = 111
 shanai = 112
 steel_drums = 115
 woodblock = 116
+
+# ---------------------WORKSHOP---------------------
+britten = [(F_Sharp6, sixteenth), (G_Sharp6, sixteenth), (B_Flat6, eighth), (C_Sharp7, eighth), (F_Sharp6, eighth), (B_Flat6, eighth), (C_Sharp7, eighth), (B_Flat6, eighth), (F_Sharp6, eighth), (E_Flat7, eighth), (B6, sixteenth), (B_Flat6, sixteenth), (G_Sharp6, eighth), (E6, eighth), (B6, eighth), (E6, eighth), (G_Sharp6, eighth), (B6, eighth), (D6, sixteenth), (E6, sixteenth), (F_Sharp6, eighth), (A6, eighth), (D6, eighth), (G6, eighth), (E6, sixteenth), (D6, sixteenth), (C6, eighth), (E6, eighth), (B5, sixteenth), (C_Sharp6, sixteenth), (D6, eighth), (B5, sixteenth), (C_Sharp6, sixteenth), (D6, eighth), (F_Sharp6, eighth), (B6, eighth), B5]
+purcell = [(D4, half), (F4, half), (A4, half), D5, (E5, eighth), (F5, eighth), (G5, eighth), (F5, eighth), (E5, eighth), (D5, eighth), (D_Flat5, half)]

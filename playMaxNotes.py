@@ -279,7 +279,7 @@ def noteLineToMinor( noteLine, key ):
 		print("The noteLineToMinor function must take in a list of MIDI notes. For example: [60, 62, 63]")
 		return
 
-	return list( map( ( lambda note: getPitch(note) - 1 if ( getPitch(note) - ( key % 12 ) ) % 12 in [ 4, 9 ] else getPitch(note) ), noteLine ) )
+	return list( map( ( lambda note: (getPitch(note) - 1, getRhythm(note)) if ( getPitch(note) - ( key % 12 ) ) % 12 in [ 4, 9 ] else note ), noteLine ) )
 
 # Creates a new list, which copies noteLine and substitutes minor 3rds/6ths with major 3rds/6ths relative to tonic.
 # This method is immutable and does not change the input noteLine
@@ -292,7 +292,7 @@ def noteLineToMajor( noteLine, key ):
 	if type(noteLine) != list:
 		print("The noteLineToMajor function must take in a list of MIDI notes. For example: [60, 62, 63]")
 		return
-	return list( map( ( lambda note: getPitch(note) + 1 if ( getPitch(note) - ( key % 12 ) ) % 12 in [ 3, 8 ] else getPitch(note) ), noteLine ) )
+	return list( map( ( lambda note: (getPitch(note) + 1, getRhythm(note)) if ( getPitch(note) - ( key % 12 ) ) % 12 in [ 3, 8 ] else note ), noteLine ) )
 
 
 # changes placement of all pitches and rests
