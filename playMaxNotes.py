@@ -126,7 +126,6 @@ def changePianoMode(mode):
 	msg = osc_message_builder.OscMessageBuilder(address = "/pianoMode")
 	msg.add_arg("mode")
 	msg.add_arg(mode)
-	msg.add_arg(1)
 	msg = msg.build()
 	client.send(msg)
 
