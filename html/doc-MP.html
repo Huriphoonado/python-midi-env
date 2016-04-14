@@ -28,7 +28,7 @@
   <h4>The first two lines of your program should be:</h2>
 
   <div class="item">
-    <code>from playMaxNotes include *</code>
+    <code>from playMaxNotes import *</code>
     <span>This line tells the computer that you are going to play some musical <a href="#note">note</a>s.</span>
   </div>
 
@@ -99,7 +99,7 @@
   </div>
 
   <div class="item">
-    <code>playList(noteLine, dynamic(optional), instrument(optional) )</code>
+    <code>playLine(noteLine, dynamic(optional), instrument(optional) )</code>
     <span>This plays a <a href="#noteLine">noteLine</a>.  The default <a href="#dynamic">dynamic</a> is mf and the default <a href="#instrument">instrument</a> is piano.</span>
   </div>
 </div>
@@ -115,8 +115,8 @@
     <span>
       <code>melody1 = [ C4, D4, E4, F4 ]</code><br>
       <code>melody2 = augment( melody1 )</code><br>
-      <code>playList( melody1 )</code><br>
-      <code>playList( melody2 )</code><br>
+      <code>playLine( melody1 )</code><br>
+      <code>playLine( melody2 )</code><br>
     </span>
     <span>This is equivalent to:</span>
     <span>
@@ -132,8 +132,8 @@
     <span>
       <code>melody1 = [ C4, D4, E4, F4 ]</code><br>
       <code>melody2 = diminute( melody1 )</code><br>
-      <code>playList( melody1 )</code><br>
-      <code>playList( melody2 )</code><br>
+      <code>playLine( melody1 )</code><br>
+      <code>playLine( melody2 )</code><br>
     </span>
     <span>This is equivalent to:</span>
     <span>
@@ -147,8 +147,8 @@
     <span>
       <code>melody1 = [ (C4, eighth), (D4, eighth), (E4, eighth), (F4, eighth) ]</code><br>
       <code>melody2 = swing( melody1 )</code><br>
-      <code>playList( melody1 )</code><br>
-      <code>playList( melody2 )</code><br>
+      <code>playLine( melody1 )</code><br>
+      <code>playLine( melody2 )</code><br>
     </span>
     <span>This is equivalent to:</span>
     <span>
@@ -162,8 +162,8 @@
     <span>
       <code>melody1 = [ C4, D4, E4, F4 ]</code><br>
       <code>melody2 = transpose( melody1 )</code><br>
-      <code>playList( melody1 )</code><br>
-      <code>playList( melody2 )</code><br>
+      <code>playLine( melody1 )</code><br>
+      <code>playLine( melody2 )</code><br>
     </span>
     <span>This is equivalent to:</span>
     <span>
@@ -179,8 +179,8 @@
     <span>
       <code>melody1 = [ C4, E4, G4, C5 ]</code><br>
       <code>melody2 = noteLineToMinor( melody1 )</code><br>
-      <code>playList( melody1 )</code><br>
-      <code>playList( melody2 )</code><br>
+      <code>playLine( melody1 )</code><br>
+      <code>playLine( melody2 )</code><br>
     </span>
     <span>This is equivalent to:</span>
     <span>
@@ -196,8 +196,8 @@
     <span>
       <code>melody1 = [ D4, F4, A4, D5 ]</code><br>
       <code>melody2 = noteLineToMajor( melody1 )</code><br>
-      <code>playList( melody1 )</code><br>
-      <code>playList( melody2 )</code><br>
+      <code>playLine( melody1 )</code><br>
+      <code>playLine( melody2 )</code><br>
     </span>
     <span>This is equivalent to:</span>
     <span>
@@ -213,8 +213,8 @@
     <span>
       <code>melody1 = [ (C4, quarter), (D4, eighth), (E4, eighth), (F4, half) ]</code><br>
       <code>melody2 = shuffleLine( melody1 )</code><br>
-      <code>playList( melody1 )</code><br>
-      <code>playList( melody2 )</code><br>
+      <code>playLine( melody1 )</code><br>
+      <code>playLine( melody2 )</code><br>
     </span>
     <span>This could be equivalent to:</span>
     <span>
@@ -230,8 +230,8 @@
     <span>
       <code>melody1 = [ (C4, quarter), (D4, eighth), (E4, eighth), (F4, half) ]</code><br>
       <code>melody2 = shufflePitches( melody1 )</code><br>
-      <code>playList( melody1 )</code><br>
-      <code>playList( melody2 )</code><br>
+      <code>playLine( melody1 )</code><br>
+      <code>playLine( melody2 )</code><br>
     </span>
     <span>This could be equivalent to:</span>
     <span>
@@ -247,8 +247,8 @@
     <span>
       <code>melody1 = [ (C4, quarter), (D4, eighth), (E4, eighth), (F4, half) ]</code><br>
       <code>melody2 = shuffleRhythms( melody1 )</code><br>
-      <code>playList( melody1 )</code><br>
-      <code>playList( melody2 )</code><br>
+      <code>playLine( melody1 )</code><br>
+      <code>playLine( melody2 )</code><br>
     </span>
     <span>This could be equivalent to:</span>
     <span>
