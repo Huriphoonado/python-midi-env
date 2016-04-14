@@ -125,8 +125,9 @@ def splitNoteLine(noteLine):
 # MIDI note value required, other parameters optional
 # Currently, notes last full duration
 # 	Could consider adding a staccato/legato parameter
-def playNote(midiVal, velocity=60 , instrument=0, noteLength=4):
-	duration = calculateNoteDuration(noteLength)
+def playNote(note, velocity=mf, instrument=0):
+	duration = calculateNoteDuration(getRhythm(note))
+	midiVal = getPitch(note)
 	if midiVal != -1:
 		msg = osc_message_builder.OscMessageBuilder(address = "/playNote")
 		msg.add_arg(midiVal)
@@ -142,26 +143,21 @@ def playNote(midiVal, velocity=60 , instrument=0, noteLength=4):
 # The speed of playback is determined by the TEMPO variable
 # Velocity can be a number or a list (even rests have velocities)
 # 	Implement: Velocity can be a crescendo or decrescendo calculated by list length
-def playLine(noteLine, velocity=60, instrument=0):
+def playLine(noteLine, velocity=mf, instrument=0):
 	if type(noteLine) != list:
 		print("The playLine function must take in a list of MIDI notes. For example: [60, 62, 63]")
 		return
 
-	if splitNoteLine(noteLine) == False:
-		return False
-	else:
-		midiLine, rhythmLine = splitNoteLine(noteLine)
-
 	if type(velocity) == int or type(velocity) == float:
 		# Implement - midiVal may be a tuple, use the rhythm value if provided
-		[playNote(midiVal, velocity, instrument, rhythmVal) for midiVal, rhythmVal in zip(midiLine, rhythmLine)]
+		[playNote(note, velocity, instrument) for note in noteLine]
 	elif type(velocity) == list:
 		# Implement the ability for a shorter velocity list to function (low priority)
-		if len(midiLine) == len(velocity):
-			[playNote(midiVal, velocityVal, instrument, rhythmVal) for midiVal, rhythmVal, velocityVal in zip(midiLine, rhythmLine, velocity)]
+		if len(noteLine) == len(velocity):
+			[playNote(note, velocityVal, instrument) for note, velocityVal in zip(noteLine, velocity)]
 		else:
 			print("Velocity list is not the same length as the MIDI note list: Playing with volume of mf")
-			[playNote(midiVal, mf, instrument, rhythmVal) for midiVal, rhythmVal in zip(midiLine, rhythmLine)]
+			[playNote(note, mf, instrument) for note, velocityVal in zip(noteLine, velocity)]
 
 
 # ---------------------Map Functions---------------------
@@ -374,7 +370,7 @@ def main():
 	#playNote(64, duration=1500)
 
 	# Play some melodies
-	cScale = [60, 62, 64, 65, 67, 69, 71, 72, -1, 72, 71, 69, 67, 65, 64, 62, 60]
+	cScale = [(60, half), 62, 64, 65, 67, 69, 71, 72, -1, 72, 71, 69, 67, 65, 64, 62, (60, half)]
 	randomVelocities = []
 	for i in range(len(cScale)):
 		randomVelocities.append(randomMIDIVal())
