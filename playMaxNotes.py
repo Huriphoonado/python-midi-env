@@ -16,6 +16,7 @@ import argparse
 import random
 from pythonosc import osc_message_builder
 from pythonosc import udp_client
+from multiprocessing import Process
 from time import sleep
 from musicalSymbols import *
 import math
@@ -119,6 +120,16 @@ def splitNoteLine(noteLine):
 
 	return midiLine, rhythmLine
 
+# Changes the piano mode in the Max Patch to monophonic or polyphonic
+def changePianoMode(mode):
+	print(mode)
+	msg = osc_message_builder.OscMessageBuilder(address = "/pianoMode")
+	msg.add_arg("mode")
+	msg.add_arg(mode)
+	msg.add_arg(1)
+	msg = msg.build()
+	client.send(msg)
+
 # ---------------------Make Sounds---------------------
 
 # Sends an OSC Message to Max to play a note via noteout
@@ -159,6 +170,31 @@ def playLine(noteLine, velocity=mf, instrument=0):
 			print("Velocity list is not the same length as the MIDI note list: Playing with volume of mf")
 			[playNote(note, mf, instrument) for note, velocityVal in zip(noteLine, velocity)]
 
+
+def playCounterpoint(*functionCalls):
+	if len(functionCalls) == 0:
+		print("The playCounterpoint function must take in at least one set of playLine arguments")
+		return
+
+	changePianoMode(1)
+	lines = []
+	for pArg in functionCalls:
+		if type(pArg) == list: # solves bug of reading arguments incorrectly
+			p = Process(target=playLine, args=((pArg, mf)))
+			lines.append(p)
+			p.start()
+		elif type(pArg) == tuple:
+			p = Process(target=playLine, args=(pArg))
+			lines.append(p)
+			p.start()
+		else:
+			print("Oops, something is wrong with the argument you included:")
+			print("Argument = " + pArg)
+			changePianoMode(0)
+			return
+	for p in lines:
+		p.join()
+	changePianoMode(0)
 
 # ---------------------Map Functions---------------------
 
@@ -353,7 +389,7 @@ def shuffleRhythms(noteLine):
 # Main shows example usage of each function
 def main():
 	# Test setup/helper functions
-	print(TEMPO)
+	'''print(TEMPO)
 	print(getTempo())
 	print(TEMPO)
 	print(half)
@@ -362,7 +398,7 @@ def main():
 	print(TEMPO)
 	print(calculateNoteDuration("a"))
 	noteA = fToM(440)
-	print(noteA, mToF(noteA))
+	print(noteA, mToF(noteA))'''
 
 	# Make some notes
 	#playNote(60)
@@ -374,15 +410,18 @@ def main():
 	randomVelocities = []
 	for i in range(len(cScale)):
 		randomVelocities.append(randomMIDIVal())
-
-	playLine(cScale)
-	playLine(cScale, randomVelocities, 18)
+	#playLine(cScale)
+	#playLine(cScale, randomVelocities, 18)
 
 	# Test the map functions
-	playLine(transpose(cScale, 2), 100, 16)
-	playLine(shuffleLine(cScale), 100, 16)
+	#playLine(transpose(cScale, 4), 100, 16)
+	#playLine(shuffleLine(cScale), 100, 16)
+	eScale = transpose(cScale, 4)
+	playCounterpoint((cScale, pp), (shuffleRhythms(eScale), pp))
+	#playCounterpoint((cScale, mf))
 	#playLine(shuffleRests(cScale) 100, 16)
 	#playLine(shufflePitches(cScale) 100, 16)
+
 
 if __name__ == '__main__':
 	main()
