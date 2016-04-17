@@ -122,7 +122,6 @@ def splitNoteLine(noteLine):
 
 # Changes the piano mode in the Max Patch to monophonic or polyphonic
 def changePianoMode(mode):
-	print(mode)
 	msg = osc_message_builder.OscMessageBuilder(address = "/pianoMode")
 	msg.add_arg("mode")
 	msg.add_arg(mode)
